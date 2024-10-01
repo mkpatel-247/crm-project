@@ -1,0 +1,21 @@
+{
+  "name": "crm-project",
+  "version": "1.0.0",
+  "description": "CRM project to made during node training.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "node",
+    "api",
+    "backend",
+    "crm",
+    "database"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
+}
