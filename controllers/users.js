@@ -1,6 +1,8 @@
 const path = require("path");
+const fs = require("fs");
 const helpers = require("../helpers/fileOperations");
 const api = require("../helpers/apiResponse");
+const uuid = require("uuid");
 
 const getUsers = () => {
     const file = path.join("data", "user-data.json");
@@ -9,9 +11,9 @@ const getUsers = () => {
 }
 
 const addUser = (body) => {
-    const { phoneNumber, status, name, username, password, ...rest } = body;
+    const { phoneNumber, status, name, username, password, ...rest } = body;    
     if (
-        !Object.keys(rest).length ||
+        Object.keys(rest).length ||
         !phoneNumber ||
         !status ||
         !name ||
@@ -22,7 +24,7 @@ const addUser = (body) => {
     }
 
     const file = path.join("data", "user-data.json");
-    const userData = getDataFromFile(file);
+    const userData = helpers.getDataFromFile(file);
     const duplicate = userData.find((element) => {
         return element.username == username || element.phoneNumber == phoneNumber;
     });

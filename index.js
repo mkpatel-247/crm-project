@@ -7,13 +7,16 @@ const userControllers = require("./controllers/users");
 
 router.use(bodyParser.json());
 
+/**
+ * Get all user list.
+ */
 router.get("/users", (req, res, next) => {
     try {
         res.writeHead(200, { "Content-Type": "application/json" });
         return res.end(
             JSON.stringify({
                 status: 200,
-                message: "Cart Details",
+                message: "All user list.",
                 data: userControllers.getUsers(),
             })
         );
@@ -22,9 +25,12 @@ router.get("/users", (req, res, next) => {
     }
 })
 
-router.post("/add-user", (req, res) => {
+/**
+ * Add user route.
+ */
+router.post("/add-user", (req, res, next) => {
     try {
-        const { message, status, code } = userControllers.addUser(req.body);
+        const { message, status, code } = userControllers.addUser(req.body);        
         if (!status) {
             res.statusCode = code;
             throw new Error(message);
@@ -41,6 +47,9 @@ router.post("/add-user", (req, res) => {
     }
 })
 
+/**
+ * Server.
+ */
 http.createServer((req, res) => {
     router(req, res, () => {
         res.writeHead(400, { "Content-Type": "application/json" });
@@ -59,7 +68,7 @@ http.createServer((req, res) => {
  * Error Handling
  */
 router.use((error, req, res, next) => {
-    response.writeHead(res.statusCode, { "Content-Type": "application/json" });
+    res.writeHead(res.statusCode, { "Content-Type": "application/json" });
     return res.end(
         JSON.stringify({ status: res.statusCode, message: error.message })
     );
