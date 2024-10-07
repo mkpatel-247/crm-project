@@ -1,53 +1,12 @@
 import http from "http";
 import Router from "router";
 import bodyParser from "body-parser";
-import { addUser, getUsers, } from "./controllers/users.js";
-// const http = require("http");
+import mainRoutes from "./routes/main.routes.js"
 const router = Router();
-// const bodyParser = require("body-parser");
 const port = 9000;
 
-// router.use(bodyParser.json());
-
-/**
- * Get all user list.
- */
-router.get("/users", (req, res, next) => {
-    try {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        return res.end(
-            JSON.stringify({
-                status: 200,
-                message: "All user list.",
-                data: getUsers(),
-            })
-        );
-    } catch (error) {
-        return next(new Error(error.message));
-    }
-})
-
-/**
- * Add user route.
- */
-router.post("/add-user", (req, res, next) => {
-    try {
-        const { message, status, code } = userControllers.addUser(req.body);
-        if (!status) {
-            res.statusCode = code;
-            throw new Error(message);
-        }
-        res.setHeader("Content-Type", "application/json");
-        return res.end(
-            JSON.stringify({
-                status: code,
-                message: message,
-            })
-        );
-    } catch (error) {
-        return next(new Error(error.message));
-    }
-})
+router.use(bodyParser.json());
+router.use('/', mainRoutes)
 
 /**
  * Server.
