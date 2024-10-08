@@ -5,7 +5,7 @@
  * @returns 
  */
 export function findIndexAndDetails(array, id) {
-    const detail = array.find((element) => element.id == id && !element?.deleted);
-    const index = array.findIndex((element) => element.id == id && !element?.deleted);
+    const detail = array.find((element) => element.id == id);
+    const index = array.findIndex((element) => element.id == id);
     return { detail, index };
 }

@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import getDataFromFile from "../utils/fileOperations.js";
-import apiResponse from "../utils/apiResponse.js";
+import { apiResponse } from "../utils/apiResponse.js";
 import { userMessages } from "../messages/user.message.js";
 import { v4 as uuidV4 } from "uuid";
 import { findIndexAndDetails } from "../utils/commonFunction.js";
@@ -13,7 +13,7 @@ const userData = getDataFromFile(file);
  * Get all user expect deleted.
  */
 export const getUsers = () => {
-    return userData.filter((element) => !element?.deleted);
+    return userData;
 };
 
 /**
@@ -83,9 +83,9 @@ export const updateUser = (newData, id) => {
  * Delete user controller.
  */
 export const deleteUser = (id) => {
-    const { index, detail } = findIndexAndDetails(userData, id).index;
-    if (index >= 0 && Object.keys(detail).length) {
-        userData[index] = { ...detail, deleted: true };
+    const index = findIndexAndDetails(userData, id).index;
+    if (index >= 0) {
+        userData.splice(index, 1);
         fs.writeFileSync(file, JSON.stringify(userData));
         return apiResponse(userMessages.U08, true, 200);
     }

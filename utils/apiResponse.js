@@ -5,8 +5,6 @@
  * @param {*} code http status code.
  * @returns
  */
-export default function apiResponse(message, status, statusCode) {
+export function apiResponse(message, status, statusCode) {
     return { message, status, statusCode };
 }
-
-// module.exports = { apiResponse }
