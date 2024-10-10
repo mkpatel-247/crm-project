@@ -6,7 +6,7 @@ export const loggerService = (req) => {
     if (!fs.existsSync("logs")) {
         fs.mkdir("logs", (err) => {
             if (err) {
-                console.log("Error :>> ", err);
+                console.log("exists error :>> ", err);
             }
         });
     }
@@ -18,19 +18,14 @@ export const loggerService = (req) => {
     const dirPath = path.join("logs", dirName);
 
     if (fs.existsSync(dirPath)) {
-        console.log(
-            "🚀 ~ loggerService ~ dirPath: ",
-            dirPath,
-            fs.existsSync(dirPath)
-        );
         fs.appendFile(`${dirPath}/logs.txt`, log, (err) => {
-            if (err) console.log("Error :>> ", err);
+            if (err) console.log("append error :>> ", err);
             console.log(`Request ${req.method} ${req.url}`);
         });
     } else {
         fs.mkdir(`${dirPath}`, (err) => {
             if (err) {
-                console.log("1. Error :>> ", err);
+                console.log("mkdir error :>> ", err);
             } else {
                 fs.writeFile(`${dirPath}/logs.txt`, log, (err) => {
                     if (err) console.log("2. Error :>> ", err);
